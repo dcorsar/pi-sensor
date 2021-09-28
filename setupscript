@@ -1,0 +1,1 @@
+su pi -c 'node /home/pi/pi-sensor/src/connectedsensorcomplete.js < /dev/null &'
