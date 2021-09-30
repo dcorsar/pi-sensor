@@ -29,7 +29,7 @@ var deviceTelemetery = '/outbox/' + devicename + '/temperature';
 
 //here we set how fast the stream is, (how often the data is pushed to the display server)
 var streamInterval;
-var msFrequency = 200;
+var msFrequency = 1000;
 
 /*
 This bloc of code sets up the type of dispay we will see on the server and starts the connection
@@ -44,11 +44,15 @@ mqttClient.on('connect', () => {
       "endPoints": {
         "temperature": {
           "title": devicename,//change this to something identifiyable e.g sensor location?
-          "card-type": "crouton-simple-text",
-          "units": "C",
+          "card-type": "crouton-chart-line",
           "values": {
-            "value": 39
-          }
+		"labels":[1],
+		"series":[[20]],            
+		"update":null
+          },
+	   "max":10,
+           "low":20,
+	   "high":50
         }
       },
       "description": "Our test device",
@@ -70,6 +74,7 @@ function working(){
     //set up a variable for the temperature
     var temp = 0;
 
+    //asks the sensor device for some data
     IMU.getValue((err, data) => {
       if (err !== null) {
         console.error("Could not read sensor data: ", err);
@@ -79,19 +84,12 @@ function working(){
       var temp = Math.round(data.temperature);
       /* Publish data to the display server */
       mqttClient.publish(deviceTelemetery, JSON.stringify({
-        "value": temp
+        "update": {
+	   "labels":[2],
+   	   "series":[[temp]]
+        }      
       }));
-    });
-    
-    
-      //matrix.showMessage(temp + ".C", 0.5, [0, 100, 255], [150, 150, 0])
-      
-
-
-
-
-
-
+  });
 }
 
 function returnRandomFloat(min, max) {

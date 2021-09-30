@@ -29,7 +29,7 @@ var deviceTelemetery = '/outbox/' + devicename + '/temperature';
 
 //here we set how fast the stream is, (how often the data is pushed to the display server)
 var streamInterval;
-var msFrequency = 200;
+var msFrequency = 1000;
 
 /*
 This bloc of code sets up the type of dispay we will see on the server and starts the connection
@@ -43,7 +43,7 @@ mqttClient.on('connect', () => {
       "name": devicename,
       "endPoints": {
         "temperature": {
-          "title": "Sensor Temp",
+          "title": devicename,//change this to something identifiyable e.g sensor location?
           "card-type": "crouton-simple-text",
           "units": "C",
           "values": {
@@ -51,7 +51,7 @@ mqttClient.on('connect', () => {
           }
         }
       },
-      "description": "Johns test device",
+      "description": "Our test device",
       "status": "good"
     }
   }));

@@ -11,7 +11,7 @@ const imu = require("node-sense-hat").Imu;
 
 const IMU = new imu.IMU();
 
-//asks the sensord device for some data
+//asks the sensor device for some data
 IMU.getValue((err, data) => {
   if (err !== null) {
     console.error("Could not read sensor data: ", err);
