@@ -5,6 +5,10 @@
  * @Last modified by:   john
  * @Last modified time: 05-Mar-192019
  */
+
+ //connects our Pi to the LED Matrix
+ const matrix = require('node-sense-hat').Leds;
+
  //connects us to the sensor device
  const imu = require("node-sense-hat").Imu;
 
@@ -22,6 +26,5 @@
    console.log("Humidity is: ", data.humidity);
 
    var temp = Math.round(data.temperature);
-
 
  });
